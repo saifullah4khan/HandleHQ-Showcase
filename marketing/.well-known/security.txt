@@ -1,0 +1,5 @@
+Contact: mailto:hello@handlehq.net
+Expires: 2027-05-24T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://handlehq.net/.well-known/security.txt
+Policy: https://handlehq.net/founder.html

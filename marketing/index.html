@@ -1,0 +1,1006 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HandleHQ â€” AI Customer Handling</title>
+  <meta name="description" content="HandleHQ's AI handles your WhatsApp, email, and Instagram messages 24/7. Collects what you need, creates a ticket, and never misses a lead." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:           #090909;
+      --surface:      #111111;
+      --surface2:     #171717;
+      --border:       #1e1e1e;
+      --border2:      #2c2c2c;
+      --border3:      #3d3d3d;
+      --purple:       #a855f7;
+      --purple-deep:  #7c3aed;
+      --purple-faint: #120820;
+      --text:         #e0e0e0;
+      --muted:        #909090;
+      --dim:          #3d3d3d;
+      --green:        #4ade80;
+      --amber:        #fbbf24;
+      --blue:         #60a5fa;
+    }
+
+    body {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* â”€â”€ NAV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 52px;
+      display: flex; align-items: stretch;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 24px;
+      font-weight: 700; font-size: 0.875rem;
+      border-right: 1px solid var(--border2);
+      flex-shrink: 0;
+      color: var(--text);
+    }
+
+    .nav-brand-mark {
+      width: 26px; height: 26px;
+      background: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; color: #000;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex; align-items: stretch;
+      list-style: none;
+    }
+
+    .nav-links li { display: flex; align-items: stretch; }
+
+    .nav-links li a {
+      display: flex; align-items: center;
+      font-size: 0.78rem; color: var(--muted);
+      padding: 0 20px;
+      border-right: 1px solid var(--border2);
+      transition: color 0.12s, background 0.12s;
+      white-space: nowrap;
+    }
+
+    .nav-links li a:hover { color: var(--text); background: var(--surface); }
+
+    .nav-spacer { flex: 1; }
+
+    .nav-actions {
+      display: flex; align-items: stretch;
+    }
+
+    .btn-nav-ghost {
+      font-family: inherit; font-size: 0.78rem; color: var(--muted);
+      background: transparent; border: none;
+      padding: 0 20px;
+      border-left: 1px solid var(--border2);
+      cursor: pointer; transition: color 0.12s;
+      display: flex; align-items: center;
+    }
+
+    .btn-nav-ghost:hover { color: var(--text); }
+
+    .btn-nav-primary {
+      font-family: inherit; font-size: 0.78rem; font-weight: 700;
+      color: #000; background: var(--purple);
+      border: none; padding: 0 24px;
+      border-left: 1px solid var(--purple);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      transition: background 0.12s;
+      white-space: nowrap;
+    }
+
+    .btn-nav-primary:hover { background: var(--purple-deep); }
+
+    /* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      border-bottom: 1px solid var(--border2);
+      position: relative;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--green);
+      margin-bottom: 28px;
+      padding: 5px 12px;
+      border: 1px solid rgba(74,222,128,0.2);
+    }
+
+    .hero-tag::before { content: '// '; color: var(--muted); }
+
+    .hero-blink {
+      display: inline-block; width: 7px; height: 13px;
+      background: var(--green);
+      vertical-align: middle;
+      animation: blink 1.2s step-end infinite;
+    }
+
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .acc { color: var(--purple); }
+
+    .hero-sub {
+      font-size: 0.9rem; color: var(--muted);
+      max-width: 500px; line-height: 1.9;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex; align-items: stretch;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      font-family: inherit; font-size: 0.82rem; font-weight: 700;
+      color: #000; background: var(--purple);
+      padding: 12px 22px;
+      border: 1px solid var(--purple);
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background 0.12s;
+    }
+
+    .btn-primary:hover { background: var(--purple-deep); border-color: var(--purple-deep); }
+
+    .btn-outline {
+      font-family: inherit; font-size: 0.82rem; color: var(--muted);
+      background: transparent;
+      padding: 12px 22px;
+      border: 1px solid var(--border2); border-left: none;
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: color 0.12s, border-color 0.12s;
+    }
+
+    .btn-outline:hover { color: var(--text); border-color: var(--border3); }
+
+    .hero-meta {
+      font-size: 0.72rem; color: var(--dim);
+    }
+
+    /* terminal window */
+    .terminal {
+      border: 1px solid var(--border2);
+      background: var(--surface);
+    }
+
+    .terminal-titlebar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 14px;
+      height: 34px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border2);
+      font-size: 0.72rem; color: var(--muted);
+    }
+
+    .terminal-title-left {
+      display: flex; align-items: center; gap: 7px;
+    }
+
+    .t-dot { width: 8px; height: 8px; flex-shrink: 0; }
+    .t-dot-r { background: #ff5f57; }
+    .t-dot-y { background: #febc2e; }
+    .t-dot-g { background: #28c840; }
+
+    .terminal-body {
+      padding: 18px 20px;
+      font-size: 0.78rem;
+      line-height: 1.85;
+    }
+
+    .t-prompt { color: var(--purple); }
+    .t-cmd { color: var(--text); }
+    .t-comment { color: var(--dim); }
+    .t-key { color: var(--muted); display: inline-block; min-width: 130px; }
+    .t-green { color: var(--green); }
+    .t-amber { color: var(--amber); }
+    .t-blue { color: var(--blue); }
+    .t-purple { color: var(--purple); }
+    .t-ok { color: var(--green); font-weight: 700; }
+    .t-line { display: block; }
+    .t-br { display: block; height: 0.5em; }
+    .t-divider { display: block; color: var(--dim); }
+
+    /* â”€â”€ CHANNELS STRIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .channels-strip {
+      border-bottom: 1px solid var(--border2);
+      padding: 0 48px;
+      display: flex; align-items: stretch;
+      overflow-x: auto;
+    }
+
+    .channels-label {
+      display: flex; align-items: center;
+      font-size: 0.7rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      white-space: nowrap; flex-shrink: 0;
+      padding: 16px 24px 16px 0;
+      border-right: 1px solid var(--border2);
+      margin-right: 0;
+    }
+
+    .channels-label::before { content: '// '; color: var(--dim); }
+
+    .channel-list {
+      display: flex; align-items: stretch;
+    }
+
+    .channel-pill {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; color: var(--muted);
+      padding: 0 20px;
+      border-right: 1px solid var(--border2);
+      border-left: none;
+      white-space: nowrap;
+      transition: color 0.12s, background 0.12s;
+    }
+
+    .channel-pill:first-child { border-left: 1px solid var(--border2); margin-left: 0; }
+    .channel-pill:hover { color: var(--text); background: var(--surface); }
+    .channel-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .channel-pill.coming {
+      color: var(--dim); border-style: dashed;
+    }
+
+    /* â”€â”€ SECTION SHARED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    section { padding: 80px 48px; border-bottom: 1px solid var(--border2); }
+
+    .section-tag {
+      font-size: 0.7rem; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+
+    .section-tag::before { content: '// '; }
+
+    .section-title {
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      max-width: 560px;
+    }
+
+    .section-sub {
+      font-size: 0.9rem; color: var(--muted);
+      max-width: 500px; line-height: 1.9;
+      margin-bottom: 48px;
+    }
+
+    /* â”€â”€ HOW IT WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border2);
+      border: 1px solid var(--border2);
+    }
+
+    .step-card {
+      background: var(--bg);
+      padding: 32px;
+      transition: background 0.12s;
+    }
+
+    .step-card:hover { background: var(--surface); }
+
+    .step-num {
+      font-size: 0.72rem; color: var(--purple);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .step-num::before { content: ''; display: block; width: 24px; height: 1px; background: var(--purple); flex-shrink: 0; }
+
+    .step-card h3 {
+      font-size: 0.95rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .step-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.8; }
+
+    /* â”€â”€ FEATURES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    #features { background: var(--surface); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border2);
+      border: 1px solid var(--border2);
+    }
+
+    .feature-item {
+      background: var(--surface);
+      padding: 28px;
+      transition: background 0.12s;
+    }
+
+    .feature-item:hover { background: var(--surface2); }
+
+    .feature-num {
+      font-size: 0.68rem; color: var(--dim);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .feature-item h3 {
+      font-size: 0.875rem; font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .feature-item p { font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
+
+    /* â”€â”€ PRICING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .pricing-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border2);
+      border: 1px solid var(--border2);
+      margin-bottom: 2px;
+    }
+
+    .price-card {
+      background: var(--bg);
+      padding: 32px;
+      display: flex; flex-direction: column;
+    }
+
+    .price-card.featured { background: var(--purple-faint); }
+
+    .price-badge {
+      font-size: 0.68rem; font-weight: 700; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .price-name {
+      font-size: 0.75rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+
+    .price-amount {
+      font-size: 2.8rem; font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .price-amount sup { font-size: 1.1rem; vertical-align: super; }
+    .price-amount span { font-size: 0.85rem; font-weight: 400; color: var(--muted); }
+
+    .price-desc {
+      font-size: 0.83rem; color: var(--muted); line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .price-divider { height: 1px; background: var(--border2); margin-bottom: 20px; }
+
+    .price-features {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 28px; flex: 1;
+    }
+
+    .price-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.83rem; color: var(--muted); line-height: 1.5;
+    }
+
+    .price-features li::before {
+      content: '+';
+      color: var(--purple);
+      font-weight: 700; flex-shrink: 0;
+    }
+
+    .price-btn {
+      font-family: inherit; font-size: 0.8rem; font-weight: 700;
+      padding: 11px 20px;
+      cursor: pointer; text-align: center; border: none;
+      transition: all 0.12s;
+      display: block; width: 100%;
+    }
+
+    .price-btn-border {
+      background: transparent;
+      border: 1px solid var(--border2);
+      color: var(--text);
+    }
+
+    .price-btn-border:hover { border-color: var(--border3); background: var(--surface); }
+
+    .price-btn-filled {
+      background: var(--purple);
+      color: #000;
+      border: 1px solid var(--purple);
+    }
+
+    .price-btn-filled:hover { background: var(--purple-deep); border-color: var(--purple-deep); }
+
+    .price-enterprise {
+      border: 1px solid var(--purple);
+      background: #0e0619;
+      background-image:
+        linear-gradient(rgba(168,85,247,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+    }
+
+    .price-enterprise::before,
+    .price-enterprise::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--purple);
+      border-style: solid;
+    }
+
+    .price-enterprise::before { top: -1px; left: -1px; border-width: 3px 0 0 3px; }
+    .price-enterprise::after  { bottom: -1px; right: -1px; border-width: 0 3px 3px 0; }
+
+    .ent-badge {
+      font-size: 0.68rem; font-weight: 700; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.15em;
+      margin-bottom: 10px;
+    }
+
+    .ent-price-name {
+      font-size: 0.75rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+
+    .ent-amount {
+      font-size: 3rem; font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .ent-amount sup { font-size: 1.2rem; vertical-align: super; }
+    .ent-amount span { font-size: 0.9rem; font-weight: 400; color: var(--muted); }
+
+    .ent-desc {
+      font-size: 0.86rem; color: var(--muted);
+      line-height: 1.8; margin-bottom: 28px;
+      max-width: 320px;
+    }
+
+    .ent-cta {
+      font-family: inherit; font-size: 0.85rem; font-weight: 700;
+      color: #000; background: var(--purple);
+      padding: 13px 32px;
+      border: 1px solid var(--purple);
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background 0.12s;
+    }
+
+    .ent-cta:hover { background: var(--purple-deep); border-color: var(--purple-deep); }
+
+    .ent-features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 40px;
+    }
+
+    .ent-feat {
+      font-size: 0.86rem; color: var(--muted);
+      display: flex; align-items: flex-start; gap: 12px;
+      line-height: 1.5;
+    }
+
+    .ent-feat::before {
+      content: '+';
+      color: var(--purple);
+      font-weight: 700; flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    .pricing-contact {
+      margin-top: 2px;
+      border: 1px solid var(--border2);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+
+    .pricing-contact-left { flex: 1; }
+
+    .pricing-contact-tag {
+      font-size: 0.68rem; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    .pricing-contact-text {
+      font-size: 0.84rem; color: var(--muted);
+      line-height: 1.85; max-width: 580px;
+    }
+
+    .pricing-contact-cta {
+      font-family: inherit; font-size: 0.83rem; font-weight: 700;
+      color: var(--purple);
+      white-space: nowrap; flex-shrink: 0;
+      padding: 11px 24px;
+      border: 1px solid var(--purple);
+      transition: background 0.12s, color 0.12s;
+      display: inline-block;
+    }
+
+    .pricing-contact-cta:hover { background: var(--purple); color: #000; }
+
+    /* â”€â”€ CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .cta-section { padding: 80px 48px; }
+
+    .cta-box {
+      max-width: 720px;
+      border: 1px solid var(--border2);
+      padding: 56px 48px;
+      position: relative;
+    }
+
+    .cta-box::before,
+    .cta-box::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      border-color: var(--purple);
+      border-style: solid;
+    }
+
+    .cta-box::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .cta-box::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+    .cta-tag {
+      font-size: 0.7rem; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+
+    .cta-tag::before { content: '// '; }
+
+    .cta-box h2 {
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .cta-box p {
+      font-size: 0.9rem; color: var(--muted);
+      line-height: 1.9; margin-bottom: 28px;
+      max-width: 480px;
+    }
+
+    /* â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    footer {
+      border-top: 1px solid var(--border2);
+      display: flex; align-items: stretch;
+      font-size: 0.75rem;
+    }
+
+    .footer-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 18px 24px;
+      border-right: 1px solid var(--border2);
+      flex-shrink: 0;
+    }
+
+    .footer-brand-mark {
+      width: 20px; height: 20px;
+      background: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; font-weight: 700; color: #000;
+    }
+
+    .footer-brand-name { font-weight: 700; color: var(--text); }
+
+    .footer-copy {
+      display: flex; align-items: center;
+      padding: 18px 24px;
+      color: var(--dim);
+      border-right: 1px solid var(--border2);
+    }
+
+    .footer-links {
+      display: flex; align-items: stretch;
+      list-style: none; margin-left: auto;
+    }
+
+    .footer-links li { display: flex; align-items: stretch; }
+
+    .footer-links li a {
+      display: flex; align-items: center;
+      padding: 0 20px; color: var(--muted);
+      border-left: 1px solid var(--border2);
+      transition: color 0.12s, background 0.12s;
+    }
+
+    .footer-links li a:hover { color: var(--text); background: var(--surface); }
+
+    /* â”€â”€ RESPONSIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .price-enterprise { grid-template-columns: 1fr; gap: 36px; }
+      .ent-features-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-contact { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .pricing-contact-cta { white-space: normal; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 96px 24px 64px; background-size: 32px 32px; }
+      section { padding: 56px 24px; }
+      .channels-strip { padding: 0 24px; }
+      .cta-section { padding: 56px 24px; }
+      .cta-box { padding: 36px 24px; }
+      .pricing-grid-3 { grid-template-columns: 1fr; }
+      .price-enterprise { padding: 36px 24px; grid-template-columns: 1fr; gap: 28px; }
+      .ent-features-grid { grid-template-columns: 1fr; }
+      .pricing-contact { padding: 28px 24px; }
+      footer { flex-wrap: wrap; }
+      .footer-copy { border-right: none; }
+      .footer-links { margin-left: 0; border-top: 1px solid var(--border2); width: 100%; }
+    }
+
+    /* â”€â”€ ANIMATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up   { animation: fadeUp 0.5s ease both; }
+    .fade-up-2 { animation: fadeUp 0.5s 0.08s ease both; }
+    .fade-up-3 { animation: fadeUp 0.5s 0.16s ease both; }
+    .fade-up-4 { animation: fadeUp 0.5s 0.24s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-mark">HQ</div>
+    HandleHQ
+  </div>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">how_it_works</a></li>
+    <li><a href="#features">features</a></li>
+    <li><a href="#pricing">pricing</a></li>
+    <li><a href="portfolio.html">portfolio</a></li>
+    <li><a href="founder.html">founder</a></li>
+    <li><a href="contact.html">contact</a></li>
+  </ul>
+  <div class="nav-spacer"></div>
+  <div class="nav-actions">
+    <a href="../frontend/" class="btn-nav-ghost">login</a>
+    <a href="mailto:hello@handlehq.net" class="btn-nav-primary">get_started â†’</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-left">
+    <div class="hero-tag fade-up">
+      ai_is_live â€” customer handling active <span class="hero-blink"></span>
+    </div>
+
+    <h1 class="fade-up-2">
+      Stop losing customers<br/>
+      to <span class="acc">slow replies</span>
+    </h1>
+
+    <p class="hero-sub fade-up-3">
+      HandleHQ's AI responds to your WhatsApp, email, and Instagram
+      messages instantly â€” 24/7. It collects the details you need,
+      creates a structured ticket, and keeps every lead accounted for.
+    </p>
+
+    <div class="hero-actions fade-up-4">
+      <a href="mailto:hello@handlehq.net" class="btn-primary">
+        get early access â†’
+      </a>
+      <a href="#how-it-works" class="btn-outline">
+        see how it works
+      </a>
+    </div>
+    <p class="hero-meta fade-up-4">// no credit card required &middot; setup in minutes</p>
+  </div>
+
+  <div class="hero-right fade-up-3">
+    <div class="terminal">
+      <div class="terminal-titlebar">
+        <div class="terminal-title-left">
+          <div class="t-dot t-dot-r"></div>
+          <div class="t-dot t-dot-y"></div>
+          <div class="t-dot t-dot-g"></div>
+          <span style="margin-left:6px;">handlehq â€” live status</span>
+        </div>
+        <span>showcase.local/demo</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-line"><span class="t-prompt">$ </span><span class="t-cmd">handlehq showcase --preview</span></span>
+        <span class="t-br"></span>
+        <span class="t-line t-comment"># ticket_queue</span>
+        <span class="t-divider">â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€</span>
+        <span class="t-line"><span class="t-key">  open         </span><span class="t-blue">24</span>    <span class="t-comment">â–“â–“â–“â–“â–“â–‘â–‘â–‘â–‘â–‘</span></span>
+        <span class="t-line"><span class="t-key">  in_progress  </span><span class="t-amber"> 8</span>    <span class="t-comment">â–“â–“â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘</span></span>
+        <span class="t-line"><span class="t-key">  closed      </span><span class="t-green">142</span>   <span class="t-comment">â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“</span></span>
+        <span class="t-line"><span class="t-key">  this_week    </span><span class="t-purple">37</span>    <span class="t-comment">â–“â–“â–“â–“â–‘â–‘â–‘â–‘â–‘â–‘</span></span>
+        <span class="t-divider">â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€</span>
+        <span class="t-br"></span>
+        <span class="t-line t-comment"># ai_agent</span>
+        <span class="t-line"><span class="t-key">  status       </span><span class="t-ok">ACTIVE</span></span>
+        <span class="t-line"><span class="t-key">  response_t   </span><span class="t-green">2.1s</span></span>
+        <span class="t-line"><span class="t-key">  uptime       </span><span class="t-green">99.9%</span></span>
+        <span class="t-line"><span class="t-key">  channels     </span><span class="t-blue">email, whatsapp</span></span>
+        <span class="t-br"></span>
+        <span class="t-line"><span class="t-prompt">$ </span><span class="t-cmd"></span><span class="hero-blink" style="background:var(--purple);width:6px;height:12px;display:inline-block;vertical-align:middle;"></span></span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CHANNELS STRIP -->
+<div class="channels-strip">
+  <div class="channels-label">integrates with</div>
+  <div class="channel-list">
+    <div class="channel-pill">
+      <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.054 23.5a.5.5 0 00.609.61l5.7-1.493A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.678-.523-5.192-1.432l-.372-.22-3.849 1.009 1.028-3.757-.242-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      WhatsApp
+    </div>
+    <div class="channel-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email
+    </div>
+    <div class="channel-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="url(#ig2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <defs><linearGradient id="ig2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f09433"/><stop offset="50%" stop-color="#e6683c"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="#e6683c" stroke="none"/>
+      </svg>
+      Instagram
+    </div>
+    <div class="channel-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Website chat
+    </div>
+    <div class="channel-pill coming">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      more on request
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-tag">how_it_works</div>
+  <h2 class="section-title">From message to ticket in seconds</h2>
+  <p class="section-sub">HandleHQ replaces the manual back-and-forth that eats up your team's time. Three steps, fully automated.</p>
+
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h3>Connect your channels</h3>
+      <p>Link your WhatsApp number, email inbox, Instagram account, or website chat. Setup takes minutes â€” no code required.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h3>AI handles the conversation</h3>
+      <p>HandleHQ's AI engages your customers naturally, asks the right questions, and collects all the details your team needs â€” even at 3am.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h3>Clean ticket, ready to action</h3>
+      <p>A structured ticket appears in your dashboard with all information filled in. Assign, update, and close â€” no digging through chat histories.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-tag">features</div>
+  <h2 class="section-title">Everything you need to handle customers at scale</h2>
+  <p class="section-sub">Built for real businesses. No fluff, no complexity.</p>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-num">F.01</div>
+      <h3>24/7 instant responses</h3>
+      <p>Your AI agent never sleeps. Every message gets a reply within seconds, not hours.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">F.02</div>
+      <h3>Structured ticket creation</h3>
+      <p>AI extracts name, contact, request type, budget, and timeline automatically â€” no manual data entry.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">F.03</div>
+      <h3>Multi-channel in one dashboard</h3>
+      <p>WhatsApp, email, Instagram, and website chat all feed into the same clean inbox.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">F.04</div>
+      <h3>Full conversation history</h3>
+      <p>Read every message exchange directly inside the ticket â€” no switching between apps.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">F.05</div>
+      <h3>Live dashboard analytics</h3>
+      <p>See open, in-progress, and closed tickets at a glance. Know your team's workload in real time.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num">F.06</div>
+      <h3>Works in any language</h3>
+      <p>HandleHQ's AI understands and responds in the language your customer writes in â€” no configuration needed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-tag">pricing</div>
+  <h2 class="section-title">Simple, transparent pricing</h2>
+  <p class="section-sub">Start free. Scale as you grow. No hidden fees.</p>
+
+  <div class="pricing-grid-3">
+    <div class="price-card">
+      <div class="price-name">STARTER</div>
+      <div class="price-amount"><sup>$</sup>39<span>/mo</span></div>
+      <div class="price-desc">For small businesses getting started with AI-powered customer handling.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>500 AI conversations / month</li>
+        <li>1 channel (Email or WhatsApp)</li>
+        <li>Admin dashboard</li>
+        <li>Ticket management</li>
+        <li>Email support</li>
+      </ul>
+      <a href="mailto:hello@handlehq.net" class="price-btn price-btn-border">get started â†’</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">â–² most popular</div>
+      <div class="price-name">GROWTH</div>
+      <div class="price-amount"><sup>$</sup>79<span>/mo</span></div>
+      <div class="price-desc">For growing teams ready to handle more volume across multiple channels.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>3,000 AI conversations / month</li>
+        <li>2 channels of your choice</li>
+        <li>2 team seats</li>
+        <li>Admin dashboard</li>
+        <li>Ticket management</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="mailto:hello@handlehq.net" class="price-btn price-btn-filled">get started â†’</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">PREMIUM</div>
+      <div class="price-amount"><sup>$</sup>200<span>/mo</span></div>
+      <div class="price-desc">For serious operations that need full channel coverage and advanced AI control.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>20,000 AI conversations / month</li>
+        <li>All channels included</li>
+        <li>Dashboard + analytics</li>
+        <li>Custom AI tone &amp; persona</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="mailto:hello@handlehq.net" class="price-btn price-btn-border">get started â†’</a>
+    </div>
+  </div>
+
+  <div class="price-enterprise">
+    <div class="ent-left">
+      <div class="ent-badge">â—† enterprise tier</div>
+      <div class="ent-price-name">ENTERPRISE</div>
+      <div class="ent-amount"><sup>$</sup>200+<span>/mo</span></div>
+      <p class="ent-desc">For large organisations that need unlimited scale, custom integrations, and a dedicated setup. Contact us for a tailored quote.</p>
+      <a href="mailto:hello@handlehq.net" class="ent-cta">contact us â†’</a>
+    </div>
+    <div class="ent-right">
+      <div class="ent-features-grid">
+        <div class="ent-feat">Unlimited AI conversations</div>
+        <div class="ent-feat">All channels + custom integrations</div>
+        <div class="ent-feat">Dedicated onboarding</div>
+        <div class="ent-feat">SLA guarantee</div>
+        <div class="ent-feat">Unlimited seats</div>
+        <div class="ent-feat">White-label option</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-contact">
+    <div class="pricing-contact-left">
+      <div class="pricing-contact-tag">// custom_plan</div>
+      <p class="pricing-contact-text">None of these plans quite fit? That's more common than you'd think. Whether you need a different conversation volume, a specific channel combination, multiple business locations, or something else entirely â€” we're happy to put together a plan that actually works for your operation. Reach out and let's have a conversation.</p>
+    </div>
+    <a href="mailto:hello@handlehq.net" class="pricing-contact-cta">build a custom plan â†’</a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box">
+    <div class="cta-tag">get_started</div>
+    <h2>Ready to stop missing leads?</h2>
+    <p>Join businesses already using HandleHQ to automate their customer handling. Get set up in under an hour.</p>
+    <a href="mailto:hello@handlehq.net" class="btn-primary">get early access â†’</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-brand-mark">HQ</div>
+    <span class="footer-brand-name">HandleHQ</span>
+  </div>
+  <div class="footer-copy">&copy; 2026 HandleHQ. All rights reserved.</div>
+  <ul class="footer-links">
+    <li><a href="portfolio.html">portfolio</a></li>
+    <li><a href="founder.html">founder</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="testimonials.html">testimonials</a></li>
+    <li><a href="../frontend/">admin</a></li>
+    <li><a href="../frontend/">dashboard</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

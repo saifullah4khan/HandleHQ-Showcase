@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HandleHQ — Early Access</title>
+  <meta name="description" content="HandleHQ is in early access. Be among the first businesses to run AI-powered customer handling. Direct access to the founder and shaped product development." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #090909; --surface: #111111; --surface2: #171717;
+      --border: #1e1e1e; --border2: #2c2c2c; --border3: #3d3d3d;
+      --purple: #a855f7; --purple-deep: #7c3aed; --purple-faint: #120820;
+      --text: #e0e0e0; --muted: #909090; --dim: #3d3d3d;
+      --green: #4ade80; --amber: #fbbf24; --blue: #60a5fa;
+    }
+    body { font-family: 'IBM Plex Mono','Courier New',monospace; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px; display: flex; align-items: stretch; background: var(--bg); border-bottom: 1px solid var(--border2); }
+    .nav-brand { display: flex; align-items: center; gap: 10px; padding: 0 24px; font-weight: 700; font-size: 0.875rem; border-right: 1px solid var(--border2); flex-shrink: 0; color: var(--text); }
+    .nav-brand-mark { width: 26px; height: 26px; background: var(--purple); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: #000; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: stretch; list-style: none; }
+    .nav-links li { display: flex; align-items: stretch; }
+    .nav-links li a { display: flex; align-items: center; font-size: 0.78rem; color: var(--muted); padding: 0 20px; border-right: 1px solid var(--border2); transition: color 0.12s, background 0.12s; white-space: nowrap; }
+    .nav-links li a:hover { color: var(--text); background: var(--surface); }
+    .nav-links li a.active { color: var(--text); }
+    .nav-spacer { flex: 1; }
+    .nav-actions { display: flex; align-items: stretch; }
+    .btn-nav-ghost { font-family: inherit; font-size: 0.78rem; color: var(--muted); background: transparent; border: none; padding: 0 20px; border-left: 1px solid var(--border2); cursor: pointer; transition: color 0.12s; display: flex; align-items: center; }
+    .btn-nav-ghost:hover { color: var(--text); }
+    .btn-nav-primary { font-family: inherit; font-size: 0.78rem; font-weight: 700; color: #000; background: var(--purple); border: none; padding: 0 24px; border-left: 1px solid var(--purple); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.12s; white-space: nowrap; }
+    .btn-nav-primary:hover { background: var(--purple-deep); }
+    .btn-primary { font-family: inherit; font-size: 0.82rem; font-weight: 700; color: #000; background: var(--purple); padding: 12px 22px; border: 1px solid var(--purple); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.12s; }
+    .btn-primary:hover { background: var(--purple-deep); border-color: var(--purple-deep); }
+    section { padding: 80px 48px; border-bottom: 1px solid var(--border2); }
+    .section-tag { font-size: 0.7rem; color: var(--purple); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+    .section-tag::before { content: '// '; }
+    .cta-section { padding: 80px 48px; }
+    .cta-box { max-width: 720px; border: 1px solid var(--border2); padding: 56px 48px; position: relative; }
+    .cta-box::before, .cta-box::after { content: ''; position: absolute; width: 14px; height: 14px; border-color: var(--purple); border-style: solid; }
+    .cta-box::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .cta-box::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .cta-tag { font-size: 0.7rem; color: var(--purple); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+    .cta-tag::before { content: '// '; }
+    .cta-box h2 { font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px; }
+    .cta-box p { font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 28px; max-width: 480px; }
+    footer { border-top: 1px solid var(--border2); display: flex; align-items: stretch; font-size: 0.75rem; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; padding: 18px 24px; border-right: 1px solid var(--border2); flex-shrink: 0; }
+    .footer-brand-mark { width: 20px; height: 20px; background: var(--purple); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 700; color: #000; }
+    .footer-brand-name { font-weight: 700; color: var(--text); }
+    .footer-copy { display: flex; align-items: center; padding: 18px 24px; color: var(--dim); border-right: 1px solid var(--border2); }
+    .footer-links { display: flex; align-items: stretch; list-style: none; margin-left: auto; }
+    .footer-links li { display: flex; align-items: stretch; }
+    .footer-links li a { display: flex; align-items: center; padding: 0 20px; color: var(--muted); border-left: 1px solid var(--border2); transition: color 0.12s, background 0.12s; }
+    .footer-links li a:hover { color: var(--text); background: var(--surface); }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      section { padding: 56px 24px; }
+      .cta-section { padding: 56px 24px; }
+      .cta-box { padding: 36px 24px; }
+      footer { flex-wrap: wrap; }
+      .footer-copy { border-right: none; }
+      .footer-links { margin-left: 0; border-top: 1px solid var(--border2); width: 100%; }
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up   { animation: fadeUp 0.5s ease both; }
+    .fade-up-2 { animation: fadeUp 0.5s 0.08s ease both; }
+    .fade-up-3 { animation: fadeUp 0.5s 0.16s ease both; }
+
+    /* PAGE SPECIFIC */
+    .page-hero { padding: 120px 48px 72px; border-bottom: 1px solid var(--border2); }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 18px; }
+    .page-hero h1 .acc { color: var(--purple); }
+    .page-hero .hero-sub { font-size: 0.9rem; color: var(--muted); max-width: 520px; line-height: 1.9; }
+    .hero-status-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; color: var(--green);
+      padding: 5px 12px;
+      border: 1px solid rgba(74,222,128,0.2);
+      margin-bottom: 24px;
+    }
+    .status-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border2);
+      border: 1px solid var(--border2);
+    }
+    .benefit-item {
+      background: var(--bg);
+      padding: 28px;
+      transition: background 0.12s;
+    }
+    .benefit-item:hover { background: var(--surface); }
+    .benefit-num { font-size: 0.68rem; color: var(--dim); font-weight: 700; margin-bottom: 12px; }
+    .benefit-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+    .benefit-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.8; }
+    .benefit-tag { display: inline-block; font-size: 0.65rem; color: var(--purple); border: 1px solid rgba(168,85,247,0.3); padding: 2px 8px; margin-top: 12px; }
+
+    .timeline-section { background: var(--surface); }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border2);
+      border: 1px solid var(--border2);
+    }
+    .timeline-step {
+      background: var(--surface);
+      padding: 24px;
+    }
+    .ts-step { font-size: 0.68rem; color: var(--purple); font-weight: 700; margin-bottom: 10px; }
+    .ts-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+    .ts-detail { font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+    .ts-time { font-size: 0.72rem; color: var(--green); margin-top: 10px; }
+
+    .placeholder-note {
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+    .placeholder-note-tag { font-size: 0.68rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .placeholder-note p { font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
+
+    @media (max-width: 900px) {
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .page-hero { padding: 96px 24px 56px; }
+    }
+    @media (max-width: 600px) {
+      .timeline { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-mark">HQ</div>
+    HandleHQ
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html">portfolio</a></li>
+    <li><a href="founder.html">founder</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="testimonials.html" class="active">testimonials</a></li>
+  </ul>
+  <div class="nav-spacer"></div>
+  <div class="nav-actions">
+    <a href="../frontend/" class="btn-nav-ghost">login</a>
+    <a href="mailto:hello@handlehq.net" class="btn-nav-primary">get_started →</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-status-pill fade-up">
+    <div class="status-dot"></div>
+    early_access — spots open
+  </div>
+  <h1 class="fade-up">Be among the <span class="acc">first</span></h1>
+  <p class="hero-sub fade-up-2">
+    HandleHQ is in early access. We're onboarding our first clients now.
+    Early clients get more than the product — they get direct access to the
+    founder and a say in what gets built next.
+  </p>
+</section>
+
+<section>
+  <div class="section-tag">early_access_benefits</div>
+  <h2 style="font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;">What early access includes</h2>
+  <p style="font-size:0.88rem;color:var(--muted);max-width:500px;line-height:1.9;margin-bottom:36px;">Being first isn't just about getting the tool earlier. It comes with things that later clients won't have.</p>
+  <div class="benefits-grid fade-up">
+    <div class="benefit-item">
+      <div class="benefit-num">01</div>
+      <div class="benefit-title">Founder-level support</div>
+      <div class="benefit-desc">Direct line to the person who built it. Not a support ticket, not a chatbot. If something isn't working right, you talk to the engineer who can fix it.</div>
+      <div class="benefit-tag">// only early clients</div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-num">02</div>
+      <div class="benefit-title">Custom configuration</div>
+      <div class="benefit-desc">We'll configure the AI specifically for your business — your ticket fields, your language, your tone. Early clients get white-glove setup, not a generic template.</div>
+      <div class="benefit-tag">// included free</div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-num">03</div>
+      <div class="benefit-title">Shape the roadmap</div>
+      <div class="benefit-desc">What you need becomes what we build. Early clients have direct influence over which features ship next. Your use case becomes our use case.</div>
+      <div class="benefit-tag">// real input</div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-num">04</div>
+      <div class="benefit-title">Early access pricing</div>
+      <div class="benefit-desc">Pricing locked at early access rates for as long as you stay on the platform. As the product matures and prices adjust, you keep your original rate.</div>
+      <div class="benefit-tag">// rate lock</div>
+    </div>
+  </div>
+  <div class="placeholder-note fade-up-2">
+    <div class="placeholder-note-tag">// testimonials</div>
+    <p>We're actively onboarding our first clients. This section will fill in with their stories once they've had time to run with the platform. If you want to be in this section one day, <a href="mailto:hello@handlehq.net" style="color:var(--purple)">reach out now</a>.</p>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="section-tag">onboarding_timeline</div>
+  <h2 style="font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;">From contact to live in under a day</h2>
+  <p style="font-size:0.88rem;color:var(--muted);max-width:500px;line-height:1.9;margin-bottom:36px;">We've made setup as fast as possible so you're not waiting days to see results.</p>
+  <div class="timeline fade-up">
+    <div class="timeline-step">
+      <div class="ts-step">STEP 01</div>
+      <div class="ts-title">You reach out</div>
+      <div class="ts-detail">Send an email to hello@handlehq.net with a brief description of your business and what you handle.</div>
+      <div class="ts-time">≈ 2 minutes</div>
+    </div>
+    <div class="timeline-step">
+      <div class="ts-step">STEP 02</div>
+      <div class="ts-title">We configure</div>
+      <div class="ts-detail">We set up the AI for your specific use case — ticket fields, language, channel connections.</div>
+      <div class="ts-time">≈ same day</div>
+    </div>
+    <div class="timeline-step">
+      <div class="ts-step">STEP 03</div>
+      <div class="ts-title">You test it</div>
+      <div class="ts-detail">Send a message the way your customers would. We'll review the extracted ticket together and refine if needed.</div>
+      <div class="ts-time">≈ 1 hour</div>
+    </div>
+    <div class="timeline-step">
+      <div class="ts-step">STEP 04</div>
+      <div class="ts-title">You go live</div>
+      <div class="ts-detail">Point your WhatsApp or email to HandleHQ. From here, every message gets handled automatically.</div>
+      <div class="ts-time">≈ day 1</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-box">
+    <div class="cta-tag">join_early_access</div>
+    <h2>Ready to stop missing messages?</h2>
+    <p>Early access is open now. Reach out and we'll have you live within 24 hours of your first email.</p>
+    <a href="mailto:hello@handlehq.net?subject=Early%20Access%20Request" class="btn-primary">request early access →</a>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-brand">
+    <div class="footer-brand-mark">HQ</div>
+    <span class="footer-brand-name">HandleHQ</span>
+  </a>
+  <div class="footer-copy">&copy; 2026 HandleHQ. All rights reserved.</div>
+  <ul class="footer-links">
+    <li><a href="portfolio.html">portfolio</a></li>
+    <li><a href="founder.html">founder</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="testimonials.html">testimonials</a></li>
+    <li><a href="../frontend/">admin</a></li>
+    <li><a href="../frontend/">dashboard</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

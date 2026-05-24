@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HandleHQ — Portfolio</title>
+  <meta name="description" content="See HandleHQ working across different industries — from clothing boutiques to real estate agencies. AI-powered ticket extraction, real examples." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --bg:           #090909;
+      --surface:      #111111;
+      --surface2:     #171717;
+      --border:       #1e1e1e;
+      --border2:      #2c2c2c;
+      --border3:      #3d3d3d;
+      --purple:       #a855f7;
+      --purple-deep:  #7c3aed;
+      --purple-faint: #120820;
+      --text:         #e0e0e0;
+      --muted:        #909090;
+      --dim:          #3d3d3d;
+      --green:        #4ade80;
+      --amber:        #fbbf24;
+      --blue:         #60a5fa;
+    }
+    body {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 52px;
+      display: flex; align-items: stretch;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border2);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 24px;
+      font-weight: 700; font-size: 0.875rem;
+      border-right: 1px solid var(--border2);
+      flex-shrink: 0;
+      color: var(--text);
+    }
+    .nav-brand-mark {
+      width: 26px; height: 26px;
+      background: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; color: #000;
+      flex-shrink: 0;
+    }
+    .nav-links { display: flex; align-items: stretch; list-style: none; }
+    .nav-links li { display: flex; align-items: stretch; }
+    .nav-links li a {
+      display: flex; align-items: center;
+      font-size: 0.78rem; color: var(--muted);
+      padding: 0 20px;
+      border-right: 1px solid var(--border2);
+      transition: color 0.12s, background 0.12s;
+      white-space: nowrap;
+    }
+    .nav-links li a:hover { color: var(--text); background: var(--surface); }
+    .nav-links li a.active { color: var(--text); }
+    .nav-spacer { flex: 1; }
+    .nav-actions { display: flex; align-items: stretch; }
+    .btn-nav-ghost {
+      font-family: inherit; font-size: 0.78rem; color: var(--muted);
+      background: transparent; border: none;
+      padding: 0 20px;
+      border-left: 1px solid var(--border2);
+      cursor: pointer; transition: color 0.12s;
+      display: flex; align-items: center;
+    }
+    .btn-nav-ghost:hover { color: var(--text); }
+    .btn-nav-primary {
+      font-family: inherit; font-size: 0.78rem; font-weight: 700;
+      color: #000; background: var(--purple);
+      border: none; padding: 0 24px;
+      border-left: 1px solid var(--purple);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      transition: background 0.12s;
+      white-space: nowrap;
+    }
+    .btn-nav-primary:hover { background: var(--purple-deep); }
+
+    /* BUTTONS */
+    .btn-primary {
+      font-family: inherit; font-size: 0.82rem; font-weight: 700;
+      color: #000; background: var(--purple);
+      padding: 12px 22px;
+      border: 1px solid var(--purple);
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background 0.12s;
+    }
+    .btn-primary:hover { background: var(--purple-deep); border-color: var(--purple-deep); }
+
+    /* SECTIONS */
+    section { padding: 80px 48px; border-bottom: 1px solid var(--border2); }
+    .section-tag {
+      font-size: 0.7rem; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+    .section-tag::before { content: '// '; }
+    .section-title {
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.2; margin-bottom: 12px; max-width: 560px;
+    }
+    .section-sub {
+      font-size: 0.9rem; color: var(--muted);
+      max-width: 500px; line-height: 1.9; margin-bottom: 48px;
+    }
+
+    /* TERMINAL */
+    .terminal { border: 1px solid var(--border2); background: var(--surface); }
+    .terminal-titlebar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 14px; height: 34px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border2);
+      font-size: 0.72rem; color: var(--muted);
+    }
+    .terminal-title-left { display: flex; align-items: center; gap: 7px; }
+    .t-dot { width: 8px; height: 8px; flex-shrink: 0; }
+    .t-dot-r { background: #ff5f57; }
+    .t-dot-y { background: #febc2e; }
+    .t-dot-g { background: #28c840; }
+    .terminal-body { padding: 18px 20px; font-size: 0.78rem; line-height: 1.85; }
+    .t-prompt { color: var(--purple); }
+    .t-comment { color: var(--dim); }
+    .t-key { color: var(--muted); display: inline-block; min-width: 150px; }
+    .t-green { color: var(--green); }
+    .t-amber { color: var(--amber); }
+    .t-blue { color: var(--blue); }
+    .t-purple { color: var(--purple); }
+    .t-ok { color: var(--green); font-weight: 700; }
+    .t-muted { color: var(--muted); }
+    .t-line { display: block; }
+    .t-br { display: block; height: 0.5em; }
+    .t-divider { display: block; color: var(--dim); }
+
+    /* CTA */
+    .cta-section { padding: 80px 48px; }
+    .cta-box {
+      max-width: 720px;
+      border: 1px solid var(--border2);
+      padding: 56px 48px;
+      position: relative;
+    }
+    .cta-box::before, .cta-box::after {
+      content: ''; position: absolute;
+      width: 14px; height: 14px;
+      border-color: var(--purple); border-style: solid;
+    }
+    .cta-box::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .cta-box::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .cta-tag {
+      font-size: 0.7rem; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px;
+    }
+    .cta-tag::before { content: '// '; }
+    .cta-box h2 {
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.2; margin-bottom: 14px;
+    }
+    .cta-box p {
+      font-size: 0.9rem; color: var(--muted);
+      line-height: 1.9; margin-bottom: 28px; max-width: 480px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border2);
+      display: flex; align-items: stretch; font-size: 0.75rem;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 18px 24px;
+      border-right: 1px solid var(--border2); flex-shrink: 0;
+    }
+    .footer-brand-mark {
+      width: 20px; height: 20px; background: var(--purple);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; font-weight: 700; color: #000;
+    }
+    .footer-brand-name { font-weight: 700; color: var(--text); }
+    .footer-copy {
+      display: flex; align-items: center;
+      padding: 18px 24px; color: var(--dim);
+      border-right: 1px solid var(--border2);
+    }
+    .footer-links { display: flex; align-items: stretch; list-style: none; margin-left: auto; }
+    .footer-links li { display: flex; align-items: stretch; }
+    .footer-links li a {
+      display: flex; align-items: center;
+      padding: 0 20px; color: var(--muted);
+      border-left: 1px solid var(--border2);
+      transition: color 0.12s, background 0.12s;
+    }
+    .footer-links li a:hover { color: var(--text); background: var(--surface); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      section { padding: 56px 24px; }
+      .cta-section { padding: 56px 24px; }
+      .cta-box { padding: 36px 24px; }
+      footer { flex-wrap: wrap; }
+      .footer-copy { border-right: none; }
+      .footer-links { margin-left: 0; border-top: 1px solid var(--border2); width: 100%; }
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fadeUp 0.5s ease both; }
+    .fade-up-2 { animation: fadeUp 0.5s 0.08s ease both; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 120px 48px 72px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .page-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.15; margin-bottom: 18px;
+    }
+    .page-hero h1 .acc { color: var(--purple); }
+    .page-hero .hero-sub {
+      font-size: 0.9rem; color: var(--muted);
+      max-width: 520px; line-height: 1.9;
+    }
+
+    /* CASE STUDIES */
+    .case-study {
+      padding: 56px 48px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .case-industry {
+      font-size: 0.7rem; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+    .case-industry::before { content: '// '; }
+    .case-title {
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 10px; letter-spacing: -0.01em;
+    }
+    .case-desc {
+      font-size: 0.86rem; color: var(--muted);
+      max-width: 620px; line-height: 1.85; margin-bottom: 32px;
+    }
+    .case-terminals {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+    .case-arrow {
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 50px;
+      color: var(--purple); font-size: 1.1rem; font-weight: 700;
+    }
+    .terminal-label {
+      font-size: 0.68rem; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .case-impact {
+      display: inline-flex; align-items: center; gap: 16px;
+      padding: 12px 20px;
+      border: 1px solid var(--border2);
+      background: var(--surface);
+    }
+    .impact-time {
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--green); letter-spacing: -0.03em;
+    }
+    .impact-divider { width: 1px; height: 28px; background: var(--border2); flex-shrink: 0; }
+    .impact-text { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+
+    @media (max-width: 960px) {
+      .case-terminals { grid-template-columns: 1fr; gap: 12px; }
+      .case-arrow { padding-top: 0; justify-content: flex-start; }
+      .case-study { padding: 40px 24px; }
+      .page-hero { padding: 96px 24px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-mark">HQ</div>
+    HandleHQ
+  </a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html" class="active">portfolio</a></li>
+    <li><a href="founder.html">founder</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="testimonials.html">testimonials</a></li>
+  </ul>
+  <div class="nav-spacer"></div>
+  <div class="nav-actions">
+    <a href="../frontend/" class="btn-nav-ghost">login</a>
+    <a href="mailto:hello@handlehq.net" class="btn-nav-primary">get_started →</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="section-tag">portfolio</div>
+  <h1 class="fade-up">HandleHQ <span class="acc">in action</span></h1>
+  <p class="hero-sub fade-up-2">
+    Every business gets messages differently. HandleHQ extracts what matters
+    and turns unstructured conversations into clean, actionable tickets —
+    across any industry, in any language.
+  </p>
+</section>
+
+<!-- CASE 1: Clothing Boutique -->
+<div class="case-study fade-up">
+  <div class="case-industry">clothing_boutique</div>
+  <h3 class="case-title">Custom order inquiry via WhatsApp</h3>
+  <p class="case-desc">
+    A customer sends an informal WhatsApp message about a custom garment. HandleHQ extracts
+    the item, size, occasion, budget, and urgency — no back-and-forth needed from your team.
+  </p>
+  <div class="case-terminals">
+    <div>
+      <div class="terminal-label">incoming message</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">whatsapp_inbound</span>
+          </div>
+          <span>+92 300 ●●●●●●●</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># raw customer message</span>
+          <span class="t-br"></span>
+          <span class="t-line t-muted">"asslam o alaikum! I wanted to get a custom</span>
+          <span class="t-line t-muted"> kurta made for eid. Size medium, embroidery</span>
+          <span class="t-line t-muted"> on the collar and sleeves. My budget is</span>
+          <span class="t-line t-muted"> around 5000 rupees. When would it be ready?"</span>
+          <span class="t-br"></span>
+          <span class="t-line t-comment"># channel: whatsapp &middot; 10:42 AM</span>
+        </div>
+      </div>
+    </div>
+    <div class="case-arrow">→</div>
+    <div>
+      <div class="terminal-label">structured ticket</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">ticket_created</span>
+          </div>
+          <span class="t-green">✓ extracted in 1.8s</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># ticket #0042</span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line"><span class="t-key">  request_type  </span><span class="t-purple">custom_order</span></span>
+          <span class="t-line"><span class="t-key">  item          </span>kurta (custom)</span>
+          <span class="t-line"><span class="t-key">  details       </span>embroidery, collar + sleeves</span>
+          <span class="t-line"><span class="t-key">  size          </span>medium</span>
+          <span class="t-line"><span class="t-key">  occasion      </span><span class="t-amber">eid</span></span>
+          <span class="t-line"><span class="t-key">  budget        </span><span class="t-green">PKR 5,000</span></span>
+          <span class="t-line"><span class="t-key">  channel       </span><span class="t-blue">whatsapp</span></span>
+          <span class="t-line"><span class="t-key">  status        </span><span class="t-ok">new</span></span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line t-comment"># ai replied to customer ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="case-impact">
+    <div class="impact-time">1.8s</div>
+    <div class="impact-divider"></div>
+    <div class="impact-text">ticket created &amp; customer replied to<br/>vs ~15 min manual handling</div>
+  </div>
+</div>
+
+<!-- CASE 2: Real Estate -->
+<div class="case-study fade-up">
+  <div class="case-industry">real_estate_agency</div>
+  <h3 class="case-title">Property viewing request via email</h3>
+  <p class="case-desc">
+    A prospective tenant emails about a listing. HandleHQ extracts property details, intent,
+    contact information, and preferred timing — instantly logged as a qualified lead.
+  </p>
+  <div class="case-terminals">
+    <div>
+      <div class="terminal-label">incoming message</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">email_inbound</span>
+          </div>
+          <span>usman.k@gmail.com</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># subject: 3BR DHA Phase 6 inquiry</span>
+          <span class="t-br"></span>
+          <span class="t-line t-muted">"Hi, I saw your listing for the 3 bedroom</span>
+          <span class="t-line t-muted"> apartment in DHA Phase 6. I'd like to</span>
+          <span class="t-line t-muted"> schedule a viewing this weekend. My name</span>
+          <span class="t-line t-muted"> is Usman Khan, 0300-1234567. Looking to</span>
+          <span class="t-line t-muted"> rent, not buy."</span>
+          <span class="t-br"></span>
+          <span class="t-line t-comment"># channel: email</span>
+        </div>
+      </div>
+    </div>
+    <div class="case-arrow">→</div>
+    <div>
+      <div class="terminal-label">structured ticket</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">ticket_created</span>
+          </div>
+          <span class="t-green">✓ extracted in 2.3s</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># ticket #0043</span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line"><span class="t-key">  request_type  </span><span class="t-purple">property_viewing</span></span>
+          <span class="t-line"><span class="t-key">  property      </span>3BR, DHA Phase 6</span>
+          <span class="t-line"><span class="t-key">  intent        </span><span class="t-amber">rent</span></span>
+          <span class="t-line"><span class="t-key">  name          </span>Usman Khan</span>
+          <span class="t-line"><span class="t-key">  phone         </span><span class="t-blue">0300-1234567</span></span>
+          <span class="t-line"><span class="t-key">  email         </span><span class="t-blue">usman.k@gmail.com</span></span>
+          <span class="t-line"><span class="t-key">  preferred     </span>this weekend</span>
+          <span class="t-line"><span class="t-key">  status        </span><span class="t-ok">new</span></span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line t-comment"># ai replied to customer ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="case-impact">
+    <div class="impact-time">2.3s</div>
+    <div class="impact-divider"></div>
+    <div class="impact-text">qualified lead captured automatically<br/>vs ~20 min manual triage</div>
+  </div>
+</div>
+
+<!-- CASE 3: Catering -->
+<div class="case-study fade-up">
+  <div class="case-industry">catering_business</div>
+  <h3 class="case-title">Wedding catering quote via WhatsApp</h3>
+  <p class="case-desc">
+    A customer asks about catering for a wedding. HandleHQ collects guest count, date,
+    menu preferences, and location — everything your team needs to send an accurate quote.
+  </p>
+  <div class="case-terminals">
+    <div>
+      <div class="terminal-label">incoming message</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">whatsapp_inbound</span>
+          </div>
+          <span>+92 333 ●●●●●●●</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># raw customer message</span>
+          <span class="t-br"></span>
+          <span class="t-line t-muted">"hi we need catering for a wedding on</span>
+          <span class="t-line t-muted"> july 15. about 200 guests. we want</span>
+          <span class="t-line t-muted"> traditional food, biryani, karahi etc.</span>
+          <span class="t-line t-muted"> we're in Lahore. what's the cost?"</span>
+          <span class="t-br"></span>
+          <span class="t-line t-comment"># channel: whatsapp</span>
+        </div>
+      </div>
+    </div>
+    <div class="case-arrow">→</div>
+    <div>
+      <div class="terminal-label">structured ticket</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">ticket_created</span>
+          </div>
+          <span class="t-green">✓ extracted in 1.9s</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># ticket #0044</span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line"><span class="t-key">  request_type  </span><span class="t-purple">catering_quote</span></span>
+          <span class="t-line"><span class="t-key">  event         </span>wedding reception</span>
+          <span class="t-line"><span class="t-key">  date          </span><span class="t-amber">July 15</span></span>
+          <span class="t-line"><span class="t-key">  guests        </span><span class="t-blue">~200</span></span>
+          <span class="t-line"><span class="t-key">  menu          </span>biryani, karahi, traditional</span>
+          <span class="t-line"><span class="t-key">  location      </span>Lahore</span>
+          <span class="t-line"><span class="t-key">  channel       </span><span class="t-blue">whatsapp</span></span>
+          <span class="t-line"><span class="t-key">  status        </span><span class="t-ok">new</span></span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line t-comment"># ai replied to customer ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="case-impact">
+    <div class="impact-time">1.9s</div>
+    <div class="impact-divider"></div>
+    <div class="impact-text">complete event brief captured automatically<br/>vs ~25 min of back-and-forth</div>
+  </div>
+</div>
+
+<!-- CASE 4: Home Services -->
+<div class="case-study fade-up">
+  <div class="case-industry">home_services</div>
+  <h3 class="case-title">Repair request via WhatsApp</h3>
+  <p class="case-desc">
+    A homeowner describes a repair issue informally. HandleHQ identifies the problem type,
+    location, and urgency — ready for your team to assign a technician immediately.
+  </p>
+  <div class="case-terminals">
+    <div>
+      <div class="terminal-label">incoming message</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">whatsapp_inbound</span>
+          </div>
+          <span>+92 321 ●●●●●●●</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># raw customer message</span>
+          <span class="t-br"></span>
+          <span class="t-line t-muted">"salam. bathroom tiles are broken in 2</span>
+          <span class="t-line t-muted"> places and there's a small leak under</span>
+          <span class="t-line t-muted"> the sink. need someone to have a look.</span>
+          <span class="t-line t-muted"> I'm in F-10 Islamabad."</span>
+          <span class="t-br"></span>
+          <span class="t-line t-comment"># channel: whatsapp</span>
+        </div>
+      </div>
+    </div>
+    <div class="case-arrow">→</div>
+    <div>
+      <div class="terminal-label">structured ticket</div>
+      <div class="terminal">
+        <div class="terminal-titlebar">
+          <div class="terminal-title-left">
+            <div class="t-dot t-dot-r"></div><div class="t-dot t-dot-y"></div><div class="t-dot t-dot-g"></div>
+            <span style="margin-left:6px">ticket_created</span>
+          </div>
+          <span class="t-green">✓ extracted in 2.0s</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-line t-comment"># ticket #0045</span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line"><span class="t-key">  request_type  </span><span class="t-purple">repair_visit</span></span>
+          <span class="t-line"><span class="t-key">  issues        </span><span class="t-amber">broken tiles (x2), sink leak</span></span>
+          <span class="t-line"><span class="t-key">  room          </span>bathroom</span>
+          <span class="t-line"><span class="t-key">  urgency       </span>standard</span>
+          <span class="t-line"><span class="t-key">  location      </span>F-10, Islamabad</span>
+          <span class="t-line"><span class="t-key">  channel       </span><span class="t-blue">whatsapp</span></span>
+          <span class="t-line"><span class="t-key">  status        </span><span class="t-ok">new</span></span>
+          <span class="t-divider">──────────────────────────────────────</span>
+          <span class="t-line t-comment"># ai replied to customer ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="case-impact">
+    <div class="impact-time">2.0s</div>
+    <div class="impact-divider"></div>
+    <div class="impact-text">dispatch-ready ticket in under 3 seconds<br/>vs ~10 min manual logging</div>
+  </div>
+</div>
+
+<section class="cta-section">
+  <div class="cta-box">
+    <div class="cta-tag">your_business</div>
+    <h2>Works for your industry too.</h2>
+    <p>HandleHQ is configurable for any business that handles customer messages. If your team spends time triaging WhatsApp or email, we can automate it.</p>
+    <a href="mailto:hello@handlehq.net" class="btn-primary">get early access →</a>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-brand">
+    <div class="footer-brand-mark">HQ</div>
+    <span class="footer-brand-name">HandleHQ</span>
+  </a>
+  <div class="footer-copy">&copy; 2026 HandleHQ. All rights reserved.</div>
+  <ul class="footer-links">
+    <li><a href="portfolio.html">portfolio</a></li>
+    <li><a href="founder.html">founder</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="testimonials.html">testimonials</a></li>
+    <li><a href="../frontend/">admin</a></li>
+    <li><a href="../frontend/">dashboard</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
